@@ -14,45 +14,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   -    |
+ * |   =    |   1  |   2  |   3  |   4  |   5  |  -   |           |  +   |   6  |   7  |   8  |   9  |   0  |   \    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  |  L1  |           |  TX  |   Y  |   U  |   I  |   O  |   P  | BkSpc  |
- * |--------+------+------+------+------+------|      |           | BOLT |------+------+------+------+------+--------|
- * | CapsLk |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |; / L2| Enter  |
- * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
- * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RShift |
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  |  (   |           |  )   |   Y  |   U  |   I  |   O  |   P  | BkSpc  |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * | Esc    |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  | Enter  |
+ * |--------+------+------+------+------+------|  [/{ |           | ]/}  |------+------+------+------+------+--------|
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |Grv/L1|  '"  |AltShf| Left | Right|                                       |  Up  | Down |   [  |   ]  | ~L1  |
+ *   |Grv/L1|  '"  |AltShf|  L1  | Space|                                       |  Tab |  L1  |   [  |   ]  | ~L1  |
  *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        | App  | LGui |       | Alt  |Ctrl/Esc|
+ *                                        ,-------------.       ,---------------.
+ *                                        | App  | LGui |       | Alt  |CapsLock|
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | Home |       | PgUp |        |      |
- *                                 | Space| BkSpc|------|       |------|  Enter | Tab  |
- *                                 |      |      | End  |       | PgDn |        |      |
+ *                                 | Ctrl | Alt  |------|       |------|  Alt   | Ctrl |
+ *                                 |      |      | BOLT |       | BOLT |        |      |
  *                                 `--------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
-        KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   TG(SYMB),
-        KC_CAPS,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
-        KC_LSFT,        CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   ALL_T(KC_NO),
-        LT(SYMB,KC_GRV),KC_QUOT,      LALT(KC_LSFT),  KC_LEFT,KC_RGHT,
-                                              ALT_T(KC_APP),  KC_LGUI,
-                                                              KC_HOME,
-                                               KC_SPC,KC_BSPC,KC_END,
+        KC_EQL,          KC_1,     KC_2,   KC_3,   KC_4,   KC_5,  KC_LBRC,
+        KC_TAB,          KC_Q,     KC_W,   KC_E,   KC_R,   KC_T,  KC_LPRN,
+        KC_ESC,          KC_A,     KC_S,   KC_D,   KC_F,   KC_G,
+        KC_LSFT,         KC_Z,     KC_X,   KC_C,   KC_V,   KC_B,  KC_MINS,
+        LT(SYMB,KC_GRV), KC_QUOT,  LALT(KC_LSFT), MO(SYMB),KC_SPC,
+                                          ALT_T(KC_APP),  KC_LGUI,
+                                                          KC_HOME,
+                                          KC_LCTL,KC_LALT,TG(TXBOLT),
         // right hand
-        KC_RGHT,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,              KC_MINS,
-        TG(TXBOLT),  KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,              KC_BSPC,
-                     KC_H,   KC_J,   KC_K,   KC_L,   LT(MDIA, KC_SCLN), KC_ENT,
-        MEH_T(KC_NO),KC_N,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH),    KC_RSFT,
-                             KC_UP,  KC_DOWN,KC_LBRC,KC_RBRC,           KC_FN1,
-        KC_LALT,        CTL_T(KC_ESC),
+        KC_RBRC, KC_6,   KC_7,   KC_8,   KC_9,   KC_0,    KC_BSLS,
+        KC_RPRN, KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,    KC_BSPC,
+                 KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN, KC_ENT,
+        KC_EQL,  KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH, KC_RSFT,
+                  KC_TAB, MO(SYMB),KC_LBRC,KC_RBRC,        KC_FN1,
+        KC_LALT, KC_CAPS,
         KC_PGUP,
-        KC_PGDN,KC_ENT,KC_TAB
+        TG(TXBOLT),KC_RALT,KC_RCTL
     ),
 /* Keymap 1: Symbol Layer
  *
@@ -196,16 +196,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
                                            KC_NO,   KC_NO,
                                                     KC_NO,
-                                  M(Al),   M(Ol),   KC_NO,
+                                 M(Al), M(Ol), TG(TXBOLT),
     // right hand
-       KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-       KC_TRNS,  M(NM),   M(NM),   M(NM),   M(NM),   M(NM),   M(NM),
-                 M(X),    M(Fr),   M(Pr),   M(Lr),   M(Tr),   M(Dr),
-       KC_NO,    M(X),    M(Rr),   M(Br),   M(Gr),   M(Sr),   M(Zr),
+       KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+       KC_NO,  M(NM),   M(NM),   M(NM),   M(NM),   M(NM),   M(NM),
+               M(X),    M(Fr),   M(Pr),   M(Lr),   M(Tr),   M(Dr),
+       KC_NO,  M(X),    M(Rr),   M(Br),   M(Gr),   M(Sr),   M(Zr),
                           KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-       KC_NO,   KC_NO,
+       KC_NO,  KC_NO,
        KC_NO,
-       KC_NO,   M(Er),   M(Ur)
+       TG(TXBOLT), M(Er), M(Ur)
 ),
 /* Keymap 4: TxBolt (Serial) Alternative
  *
