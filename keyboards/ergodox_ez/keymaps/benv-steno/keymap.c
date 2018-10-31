@@ -6,30 +6,28 @@
 
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
-#define LMOD 2 // left shift/ctrl/win/alt
-#define RMOD 3 // right shift/ctrl/win/alt
-#define TXBOLT 4 // TxBolt Steno Virtual Serial
+#define TXBOLT 2 // TxBolt Steno Virtual Serial
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer (Dvorak)
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | `/~    |   1  |   2  |   3  |   4  |   5  | -/_  |           | =/+  |   6  |   7  |   8  |   9  |   0  | BkSpc  |
+ * | `/~    |   1  |   2  |   3  |   4  |   5  | -/_  |           | =/+  |   6  |   7  |   8  |   9  |   0  | CapsLk |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    | '/"  | ,/<  | ./>  |   P      Y  |  (   |           |  )   |   F  |   G  |   C  |   R  |   L  |  /?    |
+ * | Tab    | '/"  | ,/<  | ./>  |   P      Y  |  (   |           |  )   |   F  |   G  |   C  |   R  |   L  | BkSpc  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | Esc    |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |   S  | Enter  |
  * |--------+------+------+------+------+------|  [/{ |           | ]/}  |------+------+------+------+------+--------|
- * | L2     | ;/:  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |   Z  | L3     |
+ * | Shift  | ;/:  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |   Z  | Shift  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |Grv/L1|  '"  |AltShf|  L1  | Space|                                       |  Tab |  L1  |   [  |   ]  | ~L1  |
+ *   | Ctrl | Win  | Alt  |  /?  |  L1  |                                       |  L1  |  \|  |  Alt |  Win | Ctrl |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,---------------.
- *                                        |      |      |       |      |CapsLock|
+ *                                        |      | BOLT |       | BOLT |        |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      |      |       |      |        |      |
- *                                 | Space| BkSpc|------|       |------|  Del   | Tab  |
- *                                 |      |      | BOLT |       | BOLT |        |      |
+ *                                 | Space| Ctrl |------|       |------|  Ctrl  | Tab  |
+ *                                 |      |      | Alt  |       | Alt  |        |      |
  *                                 `--------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
@@ -39,20 +37,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,           KC_1,          KC_2,           KC_3,        KC_4,          KC_5,  KC_MINS,
   KC_TAB,           KC_QUOT,       KC_COMM,        KC_DOT,      KC_P,          KC_Y,  KC_LPRN,
   KC_ESC,           KC_A,          KC_O,           KC_E,        KC_U,          KC_I,
-  MO(LMOD),         KC_SCLN,       KC_Q,           KC_J,        KC_K,          KC_X,  KC_LBRC,
-  LT(SYMB,KC_GRV),  KC_QUOT,       LALT(KC_LSFT),  MO(SYMB),    KC_SPC,
-                                                                      KC_NO,  KC_NO,
-                                                                              KC_NO,
-                                                             KC_SPC, KC_BSPC, TG(TXBOLT),
+  KC_LSFT,          KC_SCLN,       KC_Q,           KC_J,        KC_K,          KC_X,  KC_LBRC,
+  KC_LCTL,          KC_LWIN,       KC_LALT,        KC_SLSH,     MO(SYMB),
+                                                                       KC_NO, TG(TXBOLT),
+                                                                                   KC_NO,
+                                                                KC_SPC, KC_LCTL, KC_LALT,
   // right hand
-  KC_EQL,  KC_6,         KC_7,        KC_8,         KC_9,         KC_0,   KC_BSPC,
-  KC_RPRN, KC_F,         KC_G,        KC_C,         KC_R,         KC_L,   KC_SLSH,
-           KC_D,         KC_H,        KC_T,         KC_N,         KC_S,   KC_ENT,
-  KC_RBRC, KC_B,         KC_M,        KC_W,         KC_V,         KC_Z,   MO(RMOD),
-           KC_TAB,   MO(SYMB),        KC_LBRC,      KC_RBRC,    KC_FN1,
-  KC_NO,      KC_CAPS,
+  KC_EQL,  KC_6,         KC_7,        KC_8,         KC_9,         KC_0,   KC_CLCK,
+  KC_RPRN, KC_F,         KC_G,        KC_C,         KC_R,         KC_L,   KC_BSPC,
+           KC_D,         KC_H,        KC_T,         KC_N,         KC_S,    KC_ENT,
+  KC_RBRC, KC_B,         KC_M,        KC_W,         KC_V,         KC_Z,   KC_RSFT,
+       MO(SYMB),      KC_BSLS,        KC_RALT,   KC_RWIN,      KC_RCTL,
+  TG(TXBOLT), KC_NO,
   KC_NO,
-  TG(TXBOLT), KC_DEL,  KC_TAB
+  KC_RALT, KC_RCTL, KC_TAB
 ),
 /* Keymap 1: Symbol Layer
  *
@@ -95,92 +93,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
-),
-/* Keymap 2: Left modifiers
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |Shift |      |      |      |      |      |           |      |      |      |      |      |      |        |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      |      |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,---------------.
- *                                        |      |      |       |      |        |
- *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      |      |       |      |        |      |
- *                                 | Ctrl | Alt  |------|       |------|        |      |
- *                                 |      |      |      |       |      |        |      |
- *                                 `--------------------'       `----------------------'
- */
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
-// Otherwise, it needs KC_*
-[LMOD] = LAYOUT_ergodox(  // layer 0 : default
-  // left hand
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_LSFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                                KC_TRNS, KC_TRNS,
-                                                         KC_TRNS,
-                                       KC_LCTL, KC_LALT, KC_TRNS,
-  // right hand
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS,
-  KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS
-),
-/* Keymap 2: Right modifiers
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      | Shift|        |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      |      |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,---------------.
- *                                        |      |      |       |      |        |
- *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      |      |       |      |        |      |
- *                                 |      |      |------|       |------|   Alt  | Ctrl |
- *                                 |      |      |      |       |      |        |      |
- *                                 `--------------------'       `----------------------'
- */
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
-// Otherwise, it needs KC_*
-[RMOD] = LAYOUT_ergodox(  // layer 0 : default
-  // left hand
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                                KC_TRNS, KC_TRNS,
-                                                         KC_TRNS,
-                                       KC_TRNS, KC_TRNS, KC_TRNS,
-  // right hand
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_RSFT, KC_TRNS,
-                    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS,
-  KC_TRNS,
-  KC_TRNS, KC_RALT, KC_RCTL
 ),
 // TxBolt Codes
 #define Sl 0b00000001
