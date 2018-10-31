@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |      |
+ *                                        |      | BOLT |       |      | BOLT |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
  *                                 |   A  |   O  |------|       |------|   E  |   U  |
@@ -151,18 +151,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_NO,   M(Sl),   M(Tl),   M(Pl),   M(Hl),   M(X),
        KC_NO,   M(Sl),   M(Kl),   M(Wl),   M(Rl),   M(X),   KC_NO,
        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-                                           KC_NO,   KC_NO,
+                                      KC_NO,   TG(TXBOLT),
                                                     KC_NO,
-                                 M(Al), M(Ol), TG(TXBOLT),
+                                     M(Al), M(Ol),  KC_NO,
     // right hand
        KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
        KC_NO,  M(NM),   M(NM),   M(NM),   M(NM),   M(NM),   M(NM),
                M(X),    M(Fr),   M(Pr),   M(Lr),   M(Tr),   M(Dr),
        KC_NO,  M(X),    M(Rr),   M(Br),   M(Gr),   M(Sr),   M(Zr),
                           KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-       KC_NO,  KC_NO,
+       TG(TXBOLT), KC_NO,
        KC_NO,
-       TG(TXBOLT), M(Er), M(Ur)
+       KC_NO, M(Er), M(Ur)
 ),
 };
 
