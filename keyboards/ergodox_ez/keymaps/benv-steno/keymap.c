@@ -4,25 +4,25 @@
 #include "sendchar.h"
 #include "virtser.h"
 
-#define BASE 0    // default layer (qwerty)
+#define BASE 0    // default layer (Dvorak)
 #define SYMB 1    // numbers/symbols layer
 #define TXBOLT 2  // TxBolt Steno Virtual Serial
 #define NAV 3     // navigation (arrows, page up/down)
-#define DVORAK 4  // Dvorak layout
+#define QWERTY 4  // QWERTY layout
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Keymap 0: Basic layer (Dvorak)
+/* Keymap 0: Default (Dvorak)
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | `/~    |   1  |   2  |   3  |   4  |   5  | '/"  |           | }/]  |   6  |   7  |   8  |   9  |   0  | Esc    |
+ * | `/~    |   1  |   2  |   3  |   4  |   5  | [/{  |           | ]/}  |   6  |   7  |   8  |   9  |   0  | CapsLk |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  |  (   |           |  )   |   Y  |   U  |   I  |   O  |   P  | BkSpc  |
+ * | Tab    | '/"  | ,/<  | ./>  |   P      Y  |  (   |           |  )   |   F  |   G  |   C  |   R  |   L  | BkSpc  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | CapsLk |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |  ;/: | Enter  |
- * |--------+------+------+------+------+------|  -/_ |           | +/=  |------+------+------+------+------+--------|
- * | Shift  |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |  ,/< |  ./> |  //? | Shift  |
+ * | Esc    |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |   S  | Enter  |
+ * |--------+------+------+------+------+------|  -/_ |           | =/+  |------+------+------+------+------+--------|
+ * | Shift  | ;/:  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |   Z  | Shift  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | Ctrl | Win  | Alt  | [/{  |  L1  |                                       |  L1  |  \|  |  Alt |  Win | Ctrl |
+ *   | Ctrl | Win  | Alt  |  /?  |  L1  |                                       |  L1  |  \|  |  Alt |  Win | Ctrl |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,---------------.
  *                                        |      | BOLT |       | BOLT |        |
@@ -34,23 +34,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[BASE] = LAYOUT_ergodox(  // layer 0 : default
+[DVORAK] = LAYOUT_ergodox(  // layer 0 : default
   // left hand
-  KC_ESC,      KC_1,      KC_2,      KC_3,      KC_4,       KC_5,  KC_MINS,
-  KC_TAB,      KC_Q,      KC_W,      KC_E,      KC_R,       KC_T,  KC_LPRN,
-  KC_CLCK,     KC_A,      KC_S,      KC_D,      KC_F,       KC_G,
-  KC_LSFT,     KC_Z,      KC_X,      KC_C,      KC_V,       KC_B,  KC_MINS,
-  KC_LCTL,     KC_LWIN,   KC_LALT,   KC_LBRC,   MO(SYMB),
-                                                             MO(NAV), TG(TXBOLT),
-                                                                           KC_NO,
-                                                        KC_SPC, KC_LCTL, KC_LALT,
+  KC_GRV,           KC_1,          KC_2,           KC_3,        KC_4,          KC_5,  KC_LBRC,
+  KC_TAB,           KC_QUOT,       KC_COMM,        KC_DOT,      KC_P,          KC_Y,  KC_LPRN,
+  KC_ESC,           KC_A,          KC_O,           KC_E,        KC_U,          KC_I,
+  KC_LSFT,          KC_SCLN,       KC_Q,           KC_J,        KC_K,          KC_X,  KC_MINS,
+  KC_LCTL,          KC_LWIN,       KC_LALT,        KC_SLSH,     MO(SYMB),
+                                                                       KC_NO, TG(TXBOLT),
+                                                                                   KC_NO,
+                                                                KC_SPC, KC_LCTL, KC_LALT,
   // right hand
-  KC_RBRC,  KC_6,      KC_7,      KC_8,      KC_9,       KC_0,   KC_ESC,
-  KC_RPRN,  KC_Y,      KC_U,      KC_I,      KC_O,       KC_P,   KC_BSPC,
-            KC_H,      KC_J,      KC_K,      KC_L,    KC_SCLN,   KC_ENT,
-   KC_EQL,  KC_N,      KC_M,   KC_COMM,    KC_DOT,    KC_SLSH,   KC_RSFT,
-        MO(SYMB),   KC_BSLS,   KC_RALT,   KC_RWIN,    KC_RCTL,
-  TG(TXBOLT), MO(NAV),
+  KC_RBRC, KC_6,         KC_7,        KC_8,         KC_9,         KC_0,   KC_CLCK,
+  KC_RPRN, KC_F,         KC_G,        KC_C,         KC_R,         KC_L,   KC_BSPC,
+           KC_D,         KC_H,        KC_T,         KC_N,         KC_S,    KC_ENT,
+  KC_EQL,  KC_B,         KC_M,        KC_W,         KC_V,         KC_Z,   KC_RSFT,
+       MO(SYMB),      KC_BSLS,        KC_RALT,   KC_RWIN,      KC_RCTL,
+  TG(TXBOLT), KC_NO,
   KC_NO,
   KC_RALT, KC_RCTL, KC_TAB
 ),
@@ -207,18 +207,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS
 ),
-/* Keymap 3: Dvorak
+/* Keymap 3: Basic layer (QWERTY)
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | `/~    |   1  |   2  |   3  |   4  |   5  | -/_  |           | =/+  |   6  |   7  |   8  |   9  |   0  | CapsLk |
+ * | `/~    |   1  |   2  |   3  |   4  |   5  | '/"  |           | }/]  |   6  |   7  |   8  |   9  |   0  | Esc    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    | '/"  | ,/<  | ./>  |   P      Y  |  (   |           |  )   |   F  |   G  |   C  |   R  |   L  | BkSpc  |
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  |  (   |           |  )   |   Y  |   U  |   I  |   O  |   P  | BkSpc  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | Esc    |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |   S  | Enter  |
- * |--------+------+------+------+------+------|  [/{ |           | ]/}  |------+------+------+------+------+--------|
- * | Shift  | ;/:  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |   Z  | Shift  |
+ * | CapsLk |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |  ;/: | Enter  |
+ * |--------+------+------+------+------+------|  -/_ |           | +/=  |------+------+------+------+------+--------|
+ * | Shift  |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |  ,/< |  ./> |  //? | Shift  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | Ctrl | Win  | Alt  |  /?  |  L1  |                                       |  L1  |  \|  |  Alt |  Win | Ctrl |
+ *   | Ctrl | Win  | Alt  | [/{  |  L1  |                                       |  L1  |  \|  |  Alt |  Win | Ctrl |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,---------------.
  *                                        |      | BOLT |       | BOLT |        |
@@ -230,23 +230,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[DVORAK] = LAYOUT_ergodox(  // layer 0 : default
+[QWERTY] = LAYOUT_ergodox(  // layer 0 : default
   // left hand
-  KC_GRV,           KC_1,          KC_2,           KC_3,        KC_4,          KC_5,  KC_MINS,
-  KC_TAB,           KC_QUOT,       KC_COMM,        KC_DOT,      KC_P,          KC_Y,  KC_LPRN,
-  KC_ESC,           KC_A,          KC_O,           KC_E,        KC_U,          KC_I,
-  KC_LSFT,          KC_SCLN,       KC_Q,           KC_J,        KC_K,          KC_X,  KC_LBRC,
-  KC_LCTL,          KC_LWIN,       KC_LALT,        KC_SLSH,     MO(SYMB),
-                                                                       KC_NO, TG(TXBOLT),
-                                                                                   KC_NO,
-                                                                KC_SPC, KC_LCTL, KC_LALT,
+  KC_ESC,      KC_1,      KC_2,      KC_3,      KC_4,       KC_5,  KC_MINS,
+  KC_TAB,      KC_Q,      KC_W,      KC_E,      KC_R,       KC_T,  KC_LPRN,
+  KC_CLCK,     KC_A,      KC_S,      KC_D,      KC_F,       KC_G,
+  KC_LSFT,     KC_Z,      KC_X,      KC_C,      KC_V,       KC_B,  KC_MINS,
+  KC_LCTL,     KC_LWIN,   KC_LALT,   KC_LBRC,   MO(SYMB),
+                                                             MO(NAV), TG(TXBOLT),
+                                                                           KC_NO,
+                                                        KC_SPC, KC_LCTL, KC_LALT,
   // right hand
-  KC_EQL,  KC_6,         KC_7,        KC_8,         KC_9,         KC_0,   KC_CLCK,
-  KC_RPRN, KC_F,         KC_G,        KC_C,         KC_R,         KC_L,   KC_BSPC,
-           KC_D,         KC_H,        KC_T,         KC_N,         KC_S,    KC_ENT,
-  KC_RBRC, KC_B,         KC_M,        KC_W,         KC_V,         KC_Z,   KC_RSFT,
-       MO(SYMB),      KC_BSLS,        KC_RALT,   KC_RWIN,      KC_RCTL,
-  TG(TXBOLT), KC_NO,
+  KC_RBRC,  KC_6,      KC_7,      KC_8,      KC_9,       KC_0,   KC_ESC,
+  KC_RPRN,  KC_Y,      KC_U,      KC_I,      KC_O,       KC_P,   KC_BSPC,
+            KC_H,      KC_J,      KC_K,      KC_L,    KC_SCLN,   KC_ENT,
+   KC_EQL,  KC_N,      KC_M,   KC_COMM,    KC_DOT,    KC_SLSH,   KC_RSFT,
+        MO(SYMB),   KC_BSLS,   KC_RALT,   KC_RWIN,    KC_RCTL,
+  TG(TXBOLT), MO(NAV),
   KC_NO,
   KC_RALT, KC_RCTL, KC_TAB
 ),
