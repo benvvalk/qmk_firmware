@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   | Ctrl | Win  | Alt  |  /?  |  L1  |                                       |  L1  |  \|  |  Alt |  Win | Ctrl |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,---------------.
- *                                        |      | BOLT |       | BOLT |        |
+ *                                        | NAV  | BOLT |       | BOLT |  NAV   |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      |      |       |      |        |      |
  *                                 | Space| Ctrl |------|       |------|  Ctrl  | Tab  |
@@ -34,23 +34,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[DVORAK] = LAYOUT_ergodox(  // layer 0 : default
+[BASE] = LAYOUT_ergodox(  // layer 0 : default
   // left hand
-  KC_GRV,           KC_1,          KC_2,           KC_3,        KC_4,          KC_5,  KC_LBRC,
-  KC_TAB,           KC_QUOT,       KC_COMM,        KC_DOT,      KC_P,          KC_Y,  KC_LPRN,
-  KC_ESC,           KC_A,          KC_O,           KC_E,        KC_U,          KC_I,
-  KC_LSFT,          KC_SCLN,       KC_Q,           KC_J,        KC_K,          KC_X,  KC_MINS,
-  KC_LCTL,          KC_LWIN,       KC_LALT,        KC_SLSH,     MO(SYMB),
-                                                                       KC_NO, TG(TXBOLT),
+  KC_GRV,      KC_1,          KC_2,           KC_3,          KC_4,      KC_5,  KC_LBRC,
+  KC_TAB,      KC_QUOT,       KC_COMM,        KC_DOT,        KC_P,      KC_Y,  KC_LPRN,
+  KC_ESC,      LSFT_T(KC_A),  LCTL_T(KC_O),   LALT_T(KC_E),  KC_U,      KC_I,
+  KC_LSFT,     KC_SCLN,       KC_Q,           KC_J,          KC_K,      KC_X,  KC_MINS,
+  KC_LCTL,     KC_LWIN,       KC_LALT,        KC_SLSH,       MO(SYMB),
+                                                                     MO(NAV), TG(TXBOLT),
                                                                                    KC_NO,
                                                                 KC_SPC, KC_LCTL, KC_LALT,
   // right hand
-  KC_RBRC, KC_6,         KC_7,        KC_8,         KC_9,         KC_0,   KC_CLCK,
-  KC_RPRN, KC_F,         KC_G,        KC_C,         KC_R,         KC_L,   KC_BSPC,
-           KC_D,         KC_H,        KC_T,         KC_N,         KC_S,    KC_ENT,
-  KC_EQL,  KC_B,         KC_M,        KC_W,         KC_V,         KC_Z,   KC_RSFT,
-       MO(SYMB),      KC_BSLS,        KC_RALT,   KC_RWIN,      KC_RCTL,
-  TG(TXBOLT), KC_NO,
+  KC_RBRC, KC_6,       KC_7,          KC_8,         KC_9,           KC_0,   KC_CLCK,
+  KC_RPRN, KC_F,       KC_G,          KC_C,         KC_R,           KC_L,   KC_BSPC,
+           KC_D,       KC_H,   RALT_T(KC_T), RCTL_T(KC_N),  RSFT_T(KC_S),   KC_ENT,
+  KC_EQL,  KC_B,       KC_M,          KC_W,         KC_V,           KC_Z,   KC_RSFT,
+       MO(SYMB),    KC_BSLS,          KC_RALT,   KC_RWIN,        KC_RCTL,
+  TG(TXBOLT), MO(NAV),
   KC_NO,
   KC_RALT, KC_RCTL, KC_TAB
 ),
@@ -221,7 +221,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   | Ctrl | Win  | Alt  | [/{  |  L1  |                                       |  L1  |  \|  |  Alt |  Win | Ctrl |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,---------------.
- *                                        |      | BOLT |       | BOLT |        |
+ *                                        | NAV  | BOLT |       | BOLT |  NAV   |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      |      |       |      |        |      |
  *                                 | Space| Ctrl |------|       |------|  Ctrl  | Tab  |
