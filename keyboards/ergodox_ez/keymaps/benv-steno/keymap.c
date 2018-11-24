@@ -7,8 +7,9 @@
 #define BASE 0    // default layer (Dvorak)
 #define SYMB 1    // numbers/symbols layer
 #define TXBOLT 2  // TxBolt Steno Virtual Serial
-#define NAV 3     // navigation (arrows, page up/down)
-#define QWERTY 4  // QWERTY layout
+#define STENONAV 3 // quick access to arrow keys from TXBOLT layer
+#define NAV 4     // navigation (arrows, page up/down)
+#define QWERTY 5  // QWERTY layout
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Default (Dvorak)
@@ -28,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        | NAV  | BOLT |       | BOLT |  NAV   |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      |      |       |      |        |      |
- *                                 | Space| [/{  |------|       |------|  ]/}   | Tab  |
+ *                                 | Space| BkSpc|------|       |------|  Enter | Tab  |
  *                                 |      |      |  //? |       |  \/| |        |      |
  *                                 `--------------------'       `----------------------'
  */
@@ -43,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL,     KC_LWIN,       KC_LALT,        KC_LBRC,    KC_SLSH,
                                                                              MO(NAV), TG(TXBOLT),
                                                                                            KC_NO,
-                                                                        KC_SPC, KC_LBRC, KC_SLSH,
+                                                                        KC_SPC, KC_BSPC, KC_SLSH,
   // right hand
   KC_RBRC, KC_6,            KC_7,          KC_8,           KC_9,             KC_0,        KC_CLCK,
   KC_RPRN, KC_F,            KC_G,          KC_C,           KC_R,             KC_L,        KC_BSPC,
@@ -52,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSLS,         KC_RBRC,       KC_RALT,        KC_RWIN,          KC_RCTL,
   TG(TXBOLT), MO(NAV),
   KC_NO,
-  KC_BSLS, KC_RBRC, KC_TAB
+  KC_BSLS, KC_ENT, KC_TAB
 ),
 /* Keymap 1: Symbol Layer
  *
@@ -134,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |   S  |   T  |   P  |   H  |   *  |------|           |------|   *  |   F  |   P  |   L  |   T  |   D    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |   S  |   K  |   W  |   R  |   *  |      |           |      |   *  |   R  |   B  |   G  |   S  |   Z    |
+ * |  NAV   |   S  |   K  |   W  |   R  |   *  |      |           |      |   *  |   R  |   B  |   G  |   S  |   Z    |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -148,11 +149,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // TxBolt over Serial
 [TXBOLT] = LAYOUT_ergodox(
-       KC_BSPC, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-       KC_NO,   M(NM),   M(NM),   M(NM),   M(NM),   M(NM),  KC_NO,
-       KC_NO,   M(Sl),   M(Tl),   M(Pl),   M(Hl),   M(X),
-       KC_NO,   M(Sl),   M(Kl),   M(Wl),   M(Rl),   M(X),   KC_NO,
-       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+       KC_BSPC,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+       KC_NO,        M(NM),   M(NM),   M(NM),   M(NM),   M(NM),  KC_NO,
+       KC_NO,        M(Sl),   M(Tl),   M(Pl),   M(Hl),   M(X),
+	   MO(STENONAV), M(Sl),   M(Kl),   M(Wl),   M(Rl),   M(X),   KC_NO,
+       KC_NO,        KC_NO,   KC_NO,   KC_NO,   KC_NO,
                                        MO(NAV), TG(TXBOLT),
                                                     KC_NO,
                                      M(Al), M(Ol),  KC_NO,
@@ -166,14 +167,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_NO,
        KC_NO, M(Er), M(Ur)
 ),
-/* Keymap 3: Navigation Layer
+/* Keymap 3: Steno Navigation Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      | PgUp | Home |  Up  | End  | PgUp |        |
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|           |------| PgDn | Left | Down | Right| PgDn |        |
+ * |        |      |      | Win  |      |      |------|           |------| PgUp | Home |  Up  | End  |Ctrl+E| BkSpc  |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      | Shft | Ctrl | Alt  |      |      |           |      | PgDn | Left | Down | Right|Ctrl+Y|        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      |      |       |      |      |      |
+ *                                 | Spc  | BkSpc|------|       |------| Enter| Tab  |
+ *                                 |      |      |      |       |      |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
+[STENONAV] = LAYOUT_ergodox(
+       // left hand
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_LGUI,  KC_TRNS,  KC_TRNS,
+    KC_TRNS,  KC_TRNS,  KC_LSFT,  KC_LCTL,  KC_LALT,  KC_TRNS,  KC_TRNS,
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+                                                       KC_TRNS,KC_TRNS,
+                                                               KC_TRNS,
+                                                KC_SPC,KC_BSPC,KC_TRNS,
+    // right hand
+    KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,
+    KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,
+               KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   LCTL(KC_E), KC_BSPC,
+    KC_TRNS, KC_PGDOWN,  KC_LEFT,  KC_DOWN,  KC_RIGHT, LCTL(KC_Y), KC_TRNS,
+               KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+    KC_TRNS,  KC_TRNS,
+    KC_TRNS,
+    KC_TRNS, KC_ENT, KC_TAB
+),
+/* Keymap 4: Navigation Layer
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |      | Win  |      |      |      |      |           |      | PgUp | Home |  Up  | End  | PgUp |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        | Shft | Ctrl | Alt  |      |      |------|           |------| PgDn | Left | Down | Right| PgDn |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -190,8 +232,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [NAV] = LAYOUT_ergodox(
        // left hand
     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+    KC_TRNS,  KC_TRNS,  KC_LGUI,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+    KC_TRNS,  KC_LSFT,  KC_LCTL,  KC_LALT,  KC_TRNS,  KC_TRNS,
     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
                                                        KC_TRNS,KC_TRNS,
@@ -207,7 +249,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS
 ),
-/* Keymap 3: Basic layer (QWERTY)
+/* Keymap 5: Basic layer (QWERTY)
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * | `/~    |   1  |   2  |   3  |   4  |   5  | '/"  |           | }/]  |   6  |   7  |   8  |   9  |   0  | Esc    |
