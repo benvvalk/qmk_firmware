@@ -19,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    | '/"  | ,/<  | ./>  |   P      Y  |  (   |           |  )   |   F  |   G  |   C  |   R  |   L  | BkSpc  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | Esc    |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |   S  | Enter  |
+ * | '/"    |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |   S  | L      |
  * |--------+------+------+------+------+------|  -/_ |           | =/+  |------+------+------+------+------+--------|
  * | Shift  | ;/:  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |   Z  | Shift  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // left hand
   KC_GRV,      KC_1,             KC_2,           KC_3,          KC_4,  KC_5,           KC_LBRC,
   KC_TAB,      KC_QUOT,          KC_COMM,        KC_DOT,        KC_P,  KC_Y,           KC_LPRN,
-  KC_ESC,      LSFT_T(KC_A),     LCTL_T(KC_O),   LALT_T(KC_E),  KC_U,  LT(NAV, KC_I),
+  KC_QUOT,     LSFT_T(KC_A),     LCTL_T(KC_O),   LALT_T(KC_E),  KC_U,  LT(NAV, KC_I),
   KC_LSFT,     LGUI_T(KC_SCLN),  LT(SYMB, KC_Q), KC_J,          KC_K,  KC_X,           KC_MINS,
   KC_LCTL,     KC_LWIN,          KC_LALT,        KC_LBRC,    KC_SLSH,
                                                                              MO(NAV), TG(TXBOLT),
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // right hand
   KC_RBRC, KC_6,      KC_7,          KC_8,           KC_9,           KC_0,        KC_CLCK,
   KC_RPRN, KC_F,      KC_G,          KC_C,           KC_R,           KC_L,        KC_BSPC,
-           KC_D,      KC_H,  RALT_T(KC_T),   RCTL_T(KC_N),   RSFT_T(KC_S),        KC_ENT,
+           KC_D,      KC_H,  RALT_T(KC_T),   RCTL_T(KC_N),   RSFT_T(KC_S),           KC_L,
   KC_EQL,  KC_B,      KC_M,          KC_W, LT(SYMB, KC_V),   RGUI_T(KC_Z),        KC_RSFT,
         KC_BSLS,   KC_RBRC,       KC_RALT,        KC_RWIN,        KC_RCTL,
   TG(TXBOLT), MO(NAV),
