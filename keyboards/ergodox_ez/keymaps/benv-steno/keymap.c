@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      |      |       |      |        |      |
  *                                 | Esc  | Tab  |------|       |------| BkSpc  |Space |
- *                                 |      |      | BOLT |       | Enter|        |      |
+ *                                 |(Shft)|      | BOLT |       | Enter|        |(Shft)|
  *                                 `--------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL,     KC_LWIN,          KC_LALT,        KC_LBRC,    KC_SLSH,
                                                                              MO(NAV), TG(TXBOLT),
                                                                                            KC_NO,
-                                                                     KC_ESC,  KC_TAB, TG(TXBOLT),
+                                                             LSFT_T(KC_ESC),  KC_TAB, TG(TXBOLT),
   // right hand
   KC_RBRC, KC_6,      KC_7,          KC_8,           KC_9,           KC_0,        KC_CLCK,
   KC_RPRN, KC_F,      KC_G,          KC_C,           KC_R,           KC_L,        KC_BSPC,
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSLS,   KC_RBRC,       KC_RALT,        KC_RWIN,        KC_RCTL,
   TG(TXBOLT), MO(NAV),
   KC_NO,
-  KC_ENT, KC_BSPC, KC_SPC
+  KC_ENT, KC_BSPC, RSFT_T(KC_SPC),
 ),
 /* Keymap 1: Symbol Layer
  *
