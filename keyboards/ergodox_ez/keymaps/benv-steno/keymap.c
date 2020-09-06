@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      |      |       |      |        |      |
  *                                 | Esc  | Tab  |------|       |------| BkSpc  |Space |
- *                                 |      |      |  //? |       |  \/| |        |      |
+ *                                 |      |      | BOLT |       | Enter|        |      |
  *                                 `--------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
