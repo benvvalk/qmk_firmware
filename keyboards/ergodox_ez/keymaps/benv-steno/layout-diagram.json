@@ -74,19 +74,31 @@
     ">\n.\n*\n\n\n\n\n8",
     {
       "x": 10.5,
-      "t": "#000000\n\n\n#cb3d6e\n\n\n\n#ee6d00"
+      "t": "#000000\n\n\n#cb3d6e\n\n\n\n#ee6d00",
+      "fa": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
     },
-    "\n\n\n}\n\n\nC\n&uarr;"
+    "\n\n\n}\n\n\nC\nPgDn"
   ],
   [
     {
       "y": -0.875,
       "x": 2.5,
-      "t": "#000000\n\n#00773a\n\n\n\n\n#00589f"
+      "t": "#000000\n\n#00773a\n\n\n\n\n#00589f",
+      "f": 3
     },
     "<\n,\n&\n\n\n\n\n7",
     {
-      "x": 1
+      "x": 1,
+      "f": 3
     },
     "\n\n(\n\n\n\nP\n9",
     {
@@ -95,9 +107,10 @@
     },
     "\n\n\n{\n\n\nG",
     {
-      "x": 1
+      "x": 1,
+      "t": "#000000\n\n\n#cb3d6e\n\n\n\n#ee6d00"
     },
-    "\n\n\n?\n\n\nR"
+    "\n\n\n?\n\n\nR\nPgUp"
   ],
   [
     {
@@ -146,51 +159,59 @@
       "y": -0.375,
       "x": 3.5,
       "t": "#000000\n\n#00773a\n\n\n\n\n#00589f",
-      "a": 0
+      "a": 0,
+      "f": 3
     },
     "\n\n%\n\nALT\n\nO\n5",
     {
       "x": 10.5,
-      "t": "#000000\n\n\n#cb3d6e\n\n\n\n#ee6d00"
+      "t": "#000000\n\n\n#cb3d6e\n\n\n\n#ee6d00",
+      "f": 3
     },
-    "\n\n\n)\nALT\n\nT\n&darr;"
+    "\n\n\n)\nALT\n\nT\n<i class='kb kb-Arrows-Down'></i>"
   ],
   [
     {
       "y": -0.875,
       "x": 2.5,
-      "t": "#000000\n\n#00773a\n\n\n\n\n#00589f"
+      "t": "#000000\n\n#00773a\n\n\n\n\n#00589f",
+      "f": 3
     },
     "\n\n$\n\nWIN\n\nE\n4",
     {
       "x": 1,
-      "a": 4
+      "a": 4,
+      "f": 3
     },
     "\n\n^\n\n\n\nU\n6",
     {
       "x": 8.5,
-      "t": "#000000\n\n\n#cb3d6e\n\n\n\n#ee6d00"
+      "t": "#000000\n\n\n#cb3d6e\n\n\n\n#ee6d00",
+      "f": 3
     },
-    "\n\n\n(\n\n\nH\n&larr;",
+    "\n\n\n(\n\n\nH\n<i class='kb kb-Arrows-Left'></i>",
     {
       "x": 1,
-      "a": 0
+      "a": 0,
+      "f": 3
     },
-    "\n\n\n/\nWIN\n\nN\n&rarr;"
+    "\n\n\n/\nWIN\n\nN\n<i class='kb kb-Arrows-Down'></i>"
   ],
   [
     {
       "y": -0.875,
       "x": 5.5,
       "t": "#000000\n\n#00773a\n\n\n\n\n#00589f",
-      "a": 4
+      "a": 4,
+      "f": 3
     },
     "\n\n_\n\n\n\nI\n-",
     {
       "x": 6.5,
-      "t": "#000000\n\n\n#cb3d6e"
+      "t": "#000000\n\n\n#cb3d6e\n\n\n\n#ee6d00",
+      "f2": 0
     },
-    "\n\n\n~\n\n\nD"
+    "\n\n\n~\n\n\nD\n<i class='kb kb-Line-Start'></i>"
   ],
   [
     {
@@ -207,15 +228,15 @@
     "A\n\n\n\nCTRL",
     {
       "x": 14.5,
-      "t": "#000000\n\n\n#cb3d6e",
+      "t": "#000000\n\n\n#cb3d6e\n\n\n\n#ee6d00",
       "a": 0
     },
-    "\n\n\n\\\nCTRL\n\nS",
+    "\n\n\n\\\nCTRL\n\nS\n<i class='kb kb-Arrows-Right'></i>",
     {
-      "t": "#000000\n\n\n#cb3d6e\n#00773a",
+      "t": "#000000\n\n\n#cb3d6e\n#00773a\n\n\n#ee6d00",
       "w": 1.5
     },
-    "\n\n\n|\nSYML\n\nL"
+    "\n\n\n|\nSYML\n\nL\n<i class='kb kb-Line-End'></i>"
   ],
   [
     {
