@@ -8,9 +8,9 @@
 #define NUM 1     // numbers layer
 #define SYML 2    // left symbols layer
 #define SYMR 3    // right symbols layer
-#define TXBOLT 4  // TxBolt Steno Virtual Serial
-#define STENONAV 5 // quick access to arrow keys from TXBOLT layer
-#define NAV 6     // navigation (arrows, page up/down)
+#define NAV 4     // navigation (arrows, page up/down)
+#define TXBOLT 5  // TxBolt Steno Virtual Serial
+#define STENONAV 6 // quick access to arrow keys from TXBOLT layer
 #define QWERTY 7  // QWERTY layout
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO,              KC_NO,         KC_NO,          KC_NO,         KC_NO,
                                                                                KC_NO,  KC_NO,
                                                                                        KC_NO,
-                                                             LSFT_T(KC_ESC),  KC_TAB,  TG(TXBOLT),
+                                                 LSFT_T(KC_ESC), LT(NAV, KC_TAB), TG(TXBOLT),
   // right hand
   KC_NO,   KC_NO,     KC_NO,         KC_NO,          KC_NO,         KC_NO,      KC_NO,   
   KC_NO,   KC_F,      KC_G,          KC_C,           KC_R,          KC_NO,      KC_NO,
@@ -183,6 +183,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS
 ),
+/* Keymap 4: NAV Layer
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |      |      | PgDn | PgUp |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |------|           |------| Home | Left | Down | Up   | Right| End    |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      |------|       |------|      |      |
+ *                                 |      |      |      |       |      |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
+[NAV] = LAYOUT_ergodox(
+       // left hand
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,
+                                                       KC_TRNS,KC_TRNS,
+                                                               KC_TRNS,
+                                               KC_TRNS,KC_TRNS,KC_TRNS,
+    // right hand
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,
+    KC_TRNS,  KC_TRNS,  KC_HOME,  KC_PGDOWN, KC_PGUP,  KC_TRNS,   KC_TRNS,
+              KC_HOME,  KC_LEFT,  KC_DOWN,   KC_UP,    KC_RIGHT,  KC_END, 
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,
+              KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,
+    KC_TRNS, KC_TRNS,
+    KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS
+),
 // TxBolt Codes
 #define Sl 0b00000001
 #define Tl 0b00000010
@@ -212,7 +253,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define GRP1 0b01000000
 #define GRP2 0b10000000
 #define GRP3 0b11000000
-/* Keymap 4: TxBolt (Serial)
+/* Keymap 5: TxBolt (Serial)
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * | BKSPC  |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
@@ -253,7 +294,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_NO,
        TG(TXBOLT), M(Er), M(Ur)
 ),
-/* Keymap 5: Steno Navigation Layer
+/* Keymap 6: Steno Navigation Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
@@ -293,47 +334,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,  KC_TRNS,
     KC_TRNS,
     KC_TRNS, KC_ENT, KC_TAB
-),
-/* Keymap 6: Navigation Layer
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      | Win  |      |      |      |      |           |      | PgUp | Home |  Up  | End  | PgUp |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        | Shft | Ctrl | Alt  |      |      |------|           |------| PgDn | Left | Down | Right| PgDn |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      |      |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |      |
- *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      |
- *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |      |       |      |      |      |
- *                                 `--------------------'       `--------------------'
- */
-[NAV] = LAYOUT_ergodox(
-       // left hand
-    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-    KC_TRNS,  KC_TRNS,  KC_LGUI,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-    KC_TRNS,  KC_LSFT,  KC_LCTL,  KC_LALT,  KC_TRNS,  KC_TRNS,
-    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-                                                       KC_TRNS,KC_TRNS,
-                                                               KC_TRNS,
-                                               KC_TRNS,KC_TRNS,KC_TRNS,
-    // right hand
-    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,
-    KC_TRNS,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   KC_PGUP,   KC_TRNS,
-            KC_PGDOWN,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_PGDOWN, KC_TRNS,
-    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,
-              KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-    KC_TRNS, KC_TRNS,
-    KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS
 ),
 /* Keymap 7: Basic layer (QWERTY)
  *
