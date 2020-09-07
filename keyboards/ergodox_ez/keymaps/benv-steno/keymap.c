@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // right hand
   KC_NO,   KC_NO,     KC_NO,         KC_NO,          KC_NO,         KC_NO,      KC_NO,   
   KC_NO,   KC_F,      KC_G,          KC_C,           KC_R,          KC_NO,      KC_NO,
-           KC_D,      KC_H,  RALT_T(KC_T),   RGUI_T(KC_N),   RCTL_T(KC_S),       KC_L,
+           KC_D,      KC_H,  RALT_T(KC_T),   RGUI_T(KC_N),   RCTL_T(KC_S),      LT(SYML, KC_L),
   KC_NO,   KC_B,      KC_M,          KC_W,           KC_V,           KC_Z,    KC_RSFT,
            KC_NO,     KC_NO,         KC_NO,         KC_NO,          KC_NO,
   KC_NO, KC_NO,
@@ -104,11 +104,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |   7  |  8   |  9   |      |      |           |      |      |      |      |      |      |        |
+ * |        |      |   &  |  *   |  (   |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |   4  |  5   |  6   |  -   |------|           |------|      |      |      |      |      |        |
+ * |        |      |   $  |  %   |  ^   |  _   |------|           |------|      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |   1  |  2   |  3   |  =   |      |           |      |      |      |      |      |      |        |
+ * |        |      |   !  |  @   |  #   |  +   |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
- *                                 |   0  |      |------|       |------|      |      |
+ *                                 |   )  |      |------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
@@ -124,13 +124,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [SYML] = LAYOUT_ergodox(
   // left hand
   KC_TRNS,   KC_TRNS,    KC_TRNS,     KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,
-  KC_TRNS,   KC_TRNS,    KC_7,        KC_8,       KC_9,      KC_TRNS,   KC_TRNS,
-  KC_TRNS,   KC_TRNS,    KC_4,        KC_5,       KC_6,      KC_TRNS,
-  KC_TRNS,   KC_TRNS,    KC_1,        KC_2,       KC_3,      KC_TRNS,   KC_TRNS,
+  KC_TRNS,   KC_TRNS,    KC_AMPR,     KC_ASTR,    KC_LPRN,   KC_TRNS,   KC_TRNS,
+  KC_TRNS,   KC_TRNS,    KC_DLR,      KC_PERC,    KC_CIRC,   KC_TRNS,
+  KC_TRNS,   KC_TRNS,    KC_EXLM,     KC_AT,      KC_HASH,   KC_TRNS,   KC_TRNS,
   KC_TRNS,   KC_TRNS,    KC_TRNS,     KC_TRNS,    KC_TRNS,
                                                                         KC_TRNS,  KC_TRNS,
                                                                                   KC_TRNS,
-                                                                 KC_0,  KC_TRNS,  KC_TRNS,
+                                                               KC_RPRN, KC_TRNS,  KC_TRNS,
   // right hand
   KC_TRNS,   KC_TRNS,    KC_TRNS,     KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,   
   KC_TRNS,   KC_TRNS,    KC_TRNS,     KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,
