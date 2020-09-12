@@ -7,11 +7,12 @@
 #define BASE 0    // default layer (Dvorak)
 #define NUM 1     // numbers layer
 #define SYML 2    // left symbols layer
-#define SYMR 3    // right symbols layer
-#define NAV 4     // navigation (arrows, page up/down)
-#define TXBOLT 5  // TxBolt Steno Virtual Serial
-#define STENONAV 6 // quick access to arrow keys from TXBOLT layer
-#define QWERTY 7  // QWERTY layout
+#define FN 3      // function keys layer (e.g. F1)
+#define SYMR 4    // right symbols layer
+#define NAV 5     // navigation (arrows, page up/down)
+#define TXBOLT 6  // TxBolt Steno Virtual Serial
+#define STENONAV 7 // quick access to arrow keys from TXBOLT layer
+#define QWERTY 8  // QWERTY layout
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Default (Dvorak)
@@ -48,10 +49,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                        KC_NO,
                                                  LSFT_T(KC_ESC), LT(NAV, KC_TAB), TG(TXBOLT),
   // right hand
-  KC_NO,   KC_NO,        KC_NO,         KC_NO,          KC_NO,            KC_NO,      KC_NO,   
-  KC_NO,   KC_F,         KC_G,          KC_C,           KC_R,             KC_NO,      KC_NO,
-           KC_D,  RALT_T(KC_H),  RGUI_T(KC_T),   RCTL_T(KC_N),   LT(SYML, KC_S),      KC_L,
-  KC_NO,   KC_B,         KC_M,          KC_W,           KC_V,             KC_Z,       KC_RSFT,
+  KC_NO,   KC_NO,        KC_NO,         KC_NO,          KC_NO,            KC_NO,         KC_NO,
+  KC_NO,   KC_F,         KC_G,          KC_C,           KC_R,             KC_NO,         KC_NO,
+           KC_D,  RALT_T(KC_H),  RGUI_T(KC_T),   RCTL_T(KC_N),   LT(SYML, KC_S),  LT(FN, KC_L),
+  KC_NO,   KC_B,         KC_M,          KC_W,           KC_V,             KC_Z,        KC_RSFT,
            KC_NO,        KC_NO,         KC_NO,         KC_NO,             KC_NO,
   KC_NO, KC_NO,
   KC_NO,
@@ -141,7 +142,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS
 ),
-/* Keymap 3: SYMR layer
+/* Keymap 3: FN layer
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |      |  F7  |  F8  |  F9  | F12  |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |  F4  |  F5  |  F6  | F11  |------|           |------|      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |  F1  |  F2  |  F3  | F10  |      |           |      |      |      |      |      |      |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      |      |       |      |      |      |
+ *                                 | F10  | F11  |------|       |------|      |      |
+ *                                 |      |      | F12  |       |      |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
+// SYMBOLS
+[FN] = LAYOUT_ergodox(
+  // left hand
+  KC_TRNS,   KC_TRNS,    KC_TRNS,     KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,
+  KC_TRNS,   KC_TRNS,    KC_F7,       KC_F8,      KC_F9,     KC_F12,    KC_TRNS,
+  KC_TRNS,   KC_TRNS,    KC_F4,       KC_F5,      KC_F6,     KC_F11,
+  KC_TRNS,   KC_TRNS,    KC_F1,       KC_F2,      KC_F3,     KC_F10,    KC_TRNS,
+  KC_TRNS,   KC_TRNS,    KC_TRNS,     KC_TRNS,    KC_TRNS,
+                                                                        KC_TRNS,  KC_TRNS,
+                                                                                  KC_TRNS,
+                                                               KC_F10,  KC_F11,   KC_F12,
+  // right hand
+  KC_TRNS,   KC_TRNS,    KC_TRNS,     KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,
+  KC_TRNS,   KC_TRNS,    KC_TRNS,     KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,
+             KC_TRNS,    KC_TRNS,     KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,
+  KC_TRNS,   KC_TRNS,    KC_TRNS,     KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,
+                         KC_TRNS,     KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,
+  KC_TRNS, KC_TRNS,
+  KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS
+),
+/* Keymap 4: SYMR layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
@@ -183,7 +226,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS
 ),
-/* Keymap 4: NAV Layer
+/* Keymap 5: NAV Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
@@ -253,7 +296,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define GRP1 0b01000000
 #define GRP2 0b10000000
 #define GRP3 0b11000000
-/* Keymap 5: TxBolt (Serial)
+/* Keymap 6: TxBolt (Serial)
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * | BKSPC  |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
@@ -294,7 +337,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_NO,
        TG(TXBOLT), M(Er), M(Ur)
 ),
-/* Keymap 6: Steno Navigation Layer
+/* Keymap 7: Steno Navigation Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
@@ -335,7 +378,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,
     KC_TRNS, KC_ENT, KC_TAB
 ),
-/* Keymap 7: Basic layer (QWERTY)
+/* Keymap 8: Basic layer (QWERTY)
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * | `/~    |   1  |   2  |   3  |   4  |   5  | '/"  |           | }/]  |   6  |   7  |   8  |   9  |   0  | Esc    |
