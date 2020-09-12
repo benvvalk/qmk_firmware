@@ -39,20 +39,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
   // left hand
-  KC_NO,              KC_NO,         KC_NO,          KC_NO,         KC_NO,     KC_NO,    KC_NO,
-  KC_NO,              KC_QUOT,       KC_COMM,        KC_DOT,        KC_P,      KC_Y,     KC_NO,
-  LT(SYMR, KC_QUOT),  LCTL_T(KC_A),  LGUI_T(KC_O),   LALT_T(KC_E),  KC_U,      KC_I,
-  KC_LSFT,            KC_SCLN,       KC_Q,           KC_J,          KC_K,      KC_X,     KC_NO,
-  KC_NO,              KC_NO,         KC_NO,          KC_NO,         KC_NO,
+  KC_NO,    KC_NO,           KC_NO,          KC_NO,         KC_NO,         KC_NO,    KC_NO,
+  KC_NO,    KC_QUOT,         KC_COMM,        KC_DOT,        KC_P,          KC_Y,     KC_NO,
+  KC_QUOT,  LT(SYMR, KC_A),  LCTL_T(KC_O),   LGUI_T(KC_E),  LALT_T(KC_U),  KC_I,
+  KC_LSFT,  KC_SCLN,         KC_Q,           KC_J,          KC_K,          KC_X,     KC_NO,
+  KC_NO,    KC_NO,           KC_NO,          KC_NO,         KC_NO,
                                                                                KC_NO,  KC_NO,
                                                                                        KC_NO,
                                                  LSFT_T(KC_ESC), LT(NAV, KC_TAB), TG(TXBOLT),
   // right hand
-  KC_NO,   KC_NO,     KC_NO,         KC_NO,          KC_NO,         KC_NO,      KC_NO,   
-  KC_NO,   KC_F,      KC_G,          KC_C,           KC_R,          KC_NO,      KC_NO,
-           KC_D,      KC_H,  RALT_T(KC_T),   RGUI_T(KC_N),   RCTL_T(KC_S),      LT(SYML, KC_L),
-  KC_NO,   KC_B,      KC_M,          KC_W,           KC_V,           KC_Z,    KC_RSFT,
-           KC_NO,     KC_NO,         KC_NO,         KC_NO,          KC_NO,
+  KC_NO,   KC_NO,        KC_NO,         KC_NO,          KC_NO,            KC_NO,      KC_NO,   
+  KC_NO,   KC_F,         KC_G,          KC_C,           KC_R,             KC_NO,      KC_NO,
+           KC_D,  RALT_T(KC_H),  RGUI_T(KC_T),   RCTL_T(KC_N),   LT(SYML, KC_S),      KC_L,
+  KC_NO,   KC_B,         KC_M,          KC_W,           KC_V,             KC_Z,       KC_RSFT,
+           KC_NO,        KC_NO,         KC_NO,         KC_NO,             KC_NO,
   KC_NO, KC_NO,
   KC_NO,
   KC_NO, LT(NUM, KC_ENT), RSFT_T(KC_SPC)
