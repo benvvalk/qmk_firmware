@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | Shift  | ;/:  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |   Z  | Shift  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | Ctrl | Gui  | Alt  |      |      |                                        |     |      | Alt  | Gui  | Ctrl |
+ *   | Ctrl | Gui  | Alt  |      | BOLT |                                        |     |      | Alt  | Gui  | Ctrl |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,---------------.
  *                                        |      |      |       |      |        |
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO,    KC_NO,           KC_COMM,        KC_DOT,        KC_P,          KC_Y,     KC_NO,
   KC_QUOT,  LT(SYMR, KC_A),  LCTL_T(KC_O),   LGUI_T(KC_E),  LALT_T(KC_U),  KC_I,
   KC_LSFT,  KC_SCLN,         KC_Q,           KC_J,          KC_K,          KC_X,     KC_NO,
-  KC_LCTL,  KC_LGUI,         KC_LALT,        KC_NO,         KC_NO,
+  KC_LCTL,  KC_LGUI,         KC_LALT,        KC_NO,         TO(TXBOLT),
                                                                                KC_NO,  KC_NO,
                                                                                        KC_NO,
                                                  LSFT_T(KC_ESC), LT(NAV, KC_TAB), TG(TXBOLT),
@@ -49,8 +49,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO,   KC_NO,        KC_NO,         KC_NO,          KC_NO,            KC_NO,         KC_NO,
   KC_NO,   KC_F,         KC_G,          KC_C,           KC_R,             KC_NO,         KC_NO,
            KC_D,  RALT_T(KC_H),  RGUI_T(KC_T),   RCTL_T(KC_N),   LT(SYML, KC_S),  LT(FN, KC_L),
-  KC_NO,   KC_B,         KC_M,          KC_W,           KC_V,             KC_Z,        KC_RSFT,
-                         KC_NO,         KC_NO,        KC_RALT,          KC_RGUI,       KC_RCTL,
+  KC_NO,   KC_B,         KC_M,          KC_W,           KC_V,             KC_Z,          KC_RSFT,
+                         KC_NO,         KC_NO,          KC_RALT,          KC_RGUI,       KC_RCTL,
   KC_NO, KC_NO,
   KC_NO,
   KC_NO, LT(NUM, KC_ENT), RSFT_T(KC_SPC)
@@ -275,7 +275,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   |      |      |      |      |      |                                       | BASE |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | NAV  | BOLT |       | NAV  | BOLT |
@@ -301,7 +301,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_NO,  STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
                STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
        KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+                        TO(BASE),KC_NO,   KC_NO,   KC_NO,   KC_NO,
        TG(TXBOLT), MO(NAV),
        KC_NO,
        TG(TXBOLT), STN_E, STN_U
