@@ -17,9 +17,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      | ,/<  | ./>  |   P  |   Y  |      |           |      |   F  |   G  |   C  |   R  |      |        |
+ * |        | '/"  | ,/<  | ./>  |   P  |   Y  |      |           |      |   F  |   G  |   C  |   R  |   L  |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | '/"    |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |   S  | L      |
+ * | Esc    |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |   S  | Enter  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | Shift  | ;/:  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |   Z  | Shift  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        |      |      |       |      |        |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      |      |       |      |        |      |
- *                                 | Esc  | Tab  |------|       |------| Enter  |Space |
+ *                                 | Esc  | Tab  |------|       |------| Bspc   |Space |
  *                                 |(Shft)| (NAV)| BOLT |       |      | (NUM)  |(Shft)|
  *                                 `--------------------'       `----------------------'
  */
@@ -38,8 +38,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
   // left hand
   KC_NO,    KC_NO,           KC_NO,          KC_NO,         KC_NO,         KC_NO,    KC_NO,
-  KC_NO,    KC_NO,           KC_COMM,        KC_DOT,        KC_P,          KC_Y,     KC_NO,
-  KC_QUOT,  LT(SYMR, KC_A),  LCTL_T(KC_O),   LGUI_T(KC_E),  LALT_T(KC_U),  KC_I,
+  KC_NO,    KC_QUOT,         KC_COMM,        KC_DOT,        KC_P,          KC_Y,     KC_NO,
+  KC_ESC,   LT(SYMR, KC_A),  LCTL_T(KC_O),   LGUI_T(KC_E),  LALT_T(KC_U),  KC_I,
   KC_LSFT,  KC_SCLN,         KC_Q,           KC_J,          KC_K,          KC_X,     KC_NO,
   KC_LCTL,  KC_LGUI,         KC_LALT,        KC_NO,         TO(TXBOLT),
                                                                                KC_NO,  KC_NO,
@@ -47,13 +47,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                  LSFT_T(KC_ESC), LT(NAV, KC_TAB), TG(TXBOLT),
   // right hand
   KC_NO,   KC_NO,        KC_NO,         KC_NO,          KC_NO,            KC_NO,         KC_NO,
-  KC_NO,   KC_F,         KC_G,          KC_C,           KC_R,             KC_NO,         KC_NO,
-           KC_D,  RALT_T(KC_H),  RGUI_T(KC_T),   RCTL_T(KC_N),   LT(SYML, KC_S),  LT(FN, KC_L),
+  KC_NO,   KC_F,         KC_G,          KC_C,           KC_R,             KC_L,          KC_NO,
+           KC_D,  RALT_T(KC_H),  RGUI_T(KC_T),   RCTL_T(KC_N),   LT(SYML, KC_S),  LT(FN, KC_ENT),
   KC_NO,   KC_B,         KC_M,          KC_W,           KC_V,             KC_Z,          KC_RSFT,
                          KC_NO,         KC_NO,          KC_RALT,          KC_RGUI,       KC_RCTL,
   KC_NO, KC_NO,
   KC_NO,
-  KC_NO, LT(NUM, KC_ENT), RSFT_T(KC_SPC)
+  KC_NO, LT(NUM, KC_BSPC), RSFT_T(KC_SPC)
 ),
 /* Keymap 1: NUM layer
  *
