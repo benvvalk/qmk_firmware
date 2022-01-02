@@ -26,4 +26,18 @@ void     steno_set_mode(steno_mode_t mode);
 uint8_t *steno_get_state(void);
 uint8_t *steno_get_chord(void);
 
+// Note:
+//
+// I (benv) changed the methods from private to public by
+// removing the `static` keyword from the function definitions in
+// `process_steno.c` and adding the lines below.
+//
+// I use these two functions in my `keymap.c` to auto-send the "T-FP"
+// chord (attach) whenever I switch my steno/TXBOLT layer. (See
+// `process_record_user` function in
+// `keyboards/ergodox_ez/keymaps/benv-steno/keymap.c`).
+
+void     send_steno_chord(void);
+bool     update_state_bolt(uint8_t key, bool press);
+
 #endif

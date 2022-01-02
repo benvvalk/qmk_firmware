@@ -102,7 +102,7 @@ __attribute__((weak)) bool postprocess_steno_user(uint16_t keycode, keyrecord_t 
 
 __attribute__((weak)) bool process_steno_user(uint16_t keycode, keyrecord_t *record) { return true; }
 
-static void send_steno_chord(void) {
+void send_steno_chord(void) {
     if (send_steno_chord_user(mode, chord)) {
         switch (mode) {
             case STENO_MODE_BOLT:
@@ -124,7 +124,7 @@ uint8_t *steno_get_state(void) { return &state[0]; }
 
 uint8_t *steno_get_chord(void) { return &chord[0]; }
 
-static bool update_state_bolt(uint8_t key, bool press) {
+bool update_state_bolt(uint8_t key, bool press) {
     uint8_t boltcode = pgm_read_byte(boltmap + key);
     if (press) {
         state[TXB_GET_GROUP(boltcode)] |= boltcode;

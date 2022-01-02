@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO,    KC_QUOT,         KC_COMM,        KC_DOT,        KC_P,          KC_Y,     KC_NO,
   KC_ESC,   LT(SYMR, KC_A),  LCTL_T(KC_O),   LGUI_T(KC_E),  LALT_T(KC_U),  KC_I,
   KC_LSFT,  KC_SCLN,         KC_Q,           KC_J,          KC_K,          KC_X,     KC_NO,
-  KC_LCTL,  KC_LGUI,         KC_LALT,        KC_NO,         TO(TXBOLT),
+  KC_LCTL,  KC_LGUI,         KC_LALT,        KC_NO,         KC_APP,
                                                                                KC_NO,  KC_NO,
                                                                                        KC_NO,
                                                  LSFT_T(KC_ESC), LT(NAV, KC_TAB), TG(TXBOLT),
@@ -415,3 +415,42 @@ void matrix_scan_user(void) {
     }
 
 };
+
+// QMK callback for custom handling of key press/release events.
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch(keycode) {
+    case KC_APP:
+
+        // Note: I use the KC_APP keycode for switching my steno layer.
+        // There's nothing special about the choice of this particular
+        // keycode. Any keycode that I don't use in my regular typing
+        // would have worked equally well.
+
+        if (record->event.pressed) {
+
+            // Enable steno layer (defined above).
+
+            layer_on(TXBOLT);
+
+            // Auto-send the "T-FP" chord when entering the steno
+            // layer, which maps to Plover "attach" command
+            // ("{^}"). This prevents Plover from inserting a space
+            // before the first word.
+            //
+            // This is critical for smoothly switching between steno
+            // and regular typing, since I always expect the first
+            // word after entering steno mode to appear exactly at the
+            // cursor position.
+
+            update_state_bolt(STN_TL - QK_STENO, true);
+            update_state_bolt(STN_FR - QK_STENO, true);
+            update_state_bolt(STN_PR - QK_STENO, true);
+
+            send_steno_chord();
+
+            return false;
+        }
+        break;
+    }
+    return true;
+}
