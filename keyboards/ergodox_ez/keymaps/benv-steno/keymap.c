@@ -288,23 +288,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // TxBolt over Serial
 [TXBOLT] = LAYOUT_ergodox(
        // left hand
-       KC_NO,        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_NO,
-       KC_NO,        STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,  KC_NO,
-       KC_NO,        STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1,
-       MO(STENONAV), STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, KC_NO,
-       KC_NO,        KC_NO,   KC_NO,   KC_NO,   KC_NO,
+       KC_NO,  KC_NO,   KC_NO,   KC_NO,        KC_NO,   KC_NO,  KC_NO,
+       KC_NO,  KC_NO,  STN_N1,  STN_N2, MO(STENONAV),  STN_N4,  STN_N5,
+       KC_NO,  KC_NO,  STN_S1,  STN_TL,       STN_PL,  STN_HL,
+       KC_NO,  KC_NO,  STN_S2,  STN_KL,       STN_WL,  STN_RL,  STN_ST2,
+       KC_NO,  KC_NO,   KC_NO,   KC_NO,        KC_NO,
                                                     MO(NAV), TG(TXBOLT),
                                                                   KC_NO,
-                                               STN_A, STN_O, TG(TXBOLT),
+                                                   STN_A, STN_O, STN_N1,
        // right hand
-       KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-       KC_NO,  STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,  KC_NO,
-               STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
-       KC_NO,  STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
+       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+       STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,  KC_NO,  KC_NO,
+                STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR, KC_NO,
+       STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR, KC_NO,
                         TO(BASE),KC_NO,   KC_NO,   KC_NO,   KC_NO,
        TG(TXBOLT), MO(NAV),
        KC_NO,
-       TG(TXBOLT), STN_E, STN_U
+       STN_N2, STN_E, STN_U
 ),
 /* Keymap 7: Steno Navigation Layer
  *
@@ -331,17 +331,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // left hand
     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_LSFT,  KC_TRNS,  KC_TRNS,
-    KC_TRNS,  KC_TRNS,  KC_LCTL,  KC_LGUI,  KC_LALT,  KC_TRNS,  KC_TRNS,
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_LCTL,  KC_LGUI,  KC_LALT,
+    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
                                                        KC_TRNS,KC_TRNS,
                                                                KC_TRNS,
-                                                KC_SPC,KC_BSPC,KC_TRNS,
+                                               KC_LSFT,KC_BSPC,KC_TRNS,
     // right hand
     KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,
     KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,
-               KC_TRNS,  KC_TRNS,  KC_PGDN,  KC_PGUP,  KC_TRNS,    KC_TRNS,
-    KC_TRNS,   KC_HOME,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,   KC_END,
+               KC_TRNS,  KC_PGDN,  KC_PGUP,  KC_TRNS,  KC_TRNS,    KC_TRNS,
+    KC_HOME,   KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT, KC_END,     KC_TRNS,
                KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
     KC_TRNS,  KC_TRNS,
     KC_TRNS,
