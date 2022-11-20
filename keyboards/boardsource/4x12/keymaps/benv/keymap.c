@@ -9,11 +9,12 @@ enum layers {
     _ARROWS,
     _BRACKET,
     _STENO,
+    _MODE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MAIN] = LAYOUT_ortho_4x12(
-    KC_GRV,                KC_QUOT,      KC_COMM,      KC_DOT,       KC_P,                KC_Y,     KC_F,    KC_G,         KC_C,         KC_R,         KC_L,         KC_BSPC,
+    LT(_MODE, KC_GRV),     KC_QUOT,      KC_COMM,      KC_DOT,       KC_P,                KC_Y,     KC_F,    KC_G,         KC_C,         KC_R,         KC_L,         KC_BSPC,
     LT(_BRACKET, KC_ESC),  LSFT_T(KC_A), LCTL_T(KC_O), LGUI_T(KC_E), LALT_T(KC_U),        KC_I,     KC_D,    RALT_T(KC_H), RGUI_T(KC_T), RCTL_T(KC_N), RSFT_T(KC_S), KC_ENT,
     TO(_MAIN),             KC_SCLN,      KC_Q,         KC_J,         KC_K,                KC_X,     KC_B,    KC_M,         KC_W,         KC_V,         KC_Z,         KC_APP,
     KC_PIPE,               KC_LCTL,      KC_LALT,      KC_NO,        LT(_ARROWS, KC_TAB), MO(_NUM), KC_BSPC, KC_SPC,       KC_LEFT,      KC_DOWN,      KC_UP,        KC_RGHT
@@ -41,6 +42,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, STN_A,   STN_O,   STN_E,   STN_U,   _______, _______, _______, _______
+  ),
+  [_MODE] = LAYOUT_ortho_4x12(
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TO(_MAIN),
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_APP,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   )
 };
 
