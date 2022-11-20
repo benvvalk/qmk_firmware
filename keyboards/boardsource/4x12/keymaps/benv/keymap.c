@@ -15,7 +15,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MAIN] = LAYOUT_ortho_4x12(
     KC_GRV,                KC_QUOT,      KC_COMM,      KC_DOT,       KC_P,                KC_Y,     KC_F,    KC_G,         KC_C,         KC_R,         KC_L,         KC_SLSH,
     LT(_BRACKET, KC_ESC),  LSFT_T(KC_A), LCTL_T(KC_O), LGUI_T(KC_E), LALT_T(KC_U),        KC_I,     KC_D,    RALT_T(KC_H), RGUI_T(KC_T), RCTL_T(KC_N), RSFT_T(KC_S), KC_ENT,
-    TO(_MAIN),             KC_SCLN,      KC_Q,         KC_J,         KC_K,                KC_X,     KC_B,    KC_M,         KC_W,         KC_V,         KC_Z,         TO(_STENO),
+    TO(_MAIN),             KC_SCLN,      KC_Q,         KC_J,         KC_K,                KC_X,     KC_B,    KC_M,         KC_W,         KC_V,         KC_Z,         KC_APP,
     KC_PIPE,               KC_LCTL,      KC_LALT,      KC_NO,        LT(_ARROWS, KC_TAB), MO(_NUM), KC_BSPC, KC_SPC,       KC_LEFT,      KC_DOWN,      KC_UP,        KC_RGHT
   ),
   [_NUM] = LAYOUT_ortho_4x12(
@@ -43,3 +43,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, STN_A,   STN_O,   STN_E,   STN_U,   _______, _______, _______, _______
   )
 };
+
+// Prototypes for internal QMK functions we call below.
+bool add_gemini_key_to_chord(uint8_t key);
+void send_steno_chord_gemini(void);
+
+// QMK callback for custom handling of key press/release events.
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch(keycode) {
+    case KC_APP:
+
+        // Note: I use the KC_APP keycode for switching my steno layer.
+        // There's nothing special about the choice of this particular
+        // keycode. Any keycode that I don't use in my regular typing
+        // would have worked equally well.
+
+        if (record->event.pressed) {
+
+            // Enable steno layer (defined above).
+
+            layer_on(_STENO);
+
+            // Auto-send the "T-FP" chord when entering the steno
+            // layer, which maps to Plover "attach" command
+            // ("{^}"). This prevents Plover from inserting a space
+            // before the first word.
+            //
+            // This is critical for smoothly switching between steno
+            // and regular typing, since I always expect the first
+            // word after entering steno mode to appear exactly at the
+            // cursor position.
+
+            add_gemini_key_to_chord(STN_TL - QK_STENO);
+            add_gemini_key_to_chord(STN_FR - QK_STENO);
+            add_gemini_key_to_chord(STN_PR - QK_STENO);
+
+            send_steno_chord_gemini();
+
+            return false;
+        }
+        break;
+    }
+    return true;
+}
