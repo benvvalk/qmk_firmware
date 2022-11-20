@@ -54,6 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Prototypes for internal QMK functions we call below.
 bool add_gemini_key_to_chord(uint8_t key);
 void send_steno_chord_gemini(void);
+void steno_clear_chord(void);
 
 // QMK callback for custom handling of key press/release events.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -80,12 +81,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // and regular typing, since I always expect the first
             // word after entering steno mode to appear exactly at the
             // cursor position.
+            //
+            // Note: See `quantum/process_keycode/process_steno.c` for
+            // further examples of how these functions are used.
 
             add_gemini_key_to_chord(STN_TL - QK_STENO);
             add_gemini_key_to_chord(STN_FR - QK_STENO);
             add_gemini_key_to_chord(STN_PR - QK_STENO);
 
             send_steno_chord_gemini();
+            steno_clear_chord();
 
             return false;
         }
