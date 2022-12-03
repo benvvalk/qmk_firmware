@@ -6,6 +6,7 @@
 enum layers {
     _MAIN,
     _NUM,
+    _SYM,
     _FKEY,
     _ARROWS,
     _BRACKET,
@@ -15,16 +16,22 @@ enum layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MAIN] = LAYOUT_ortho_4x12(
-    LT(_MODE, KC_GRV), KC_QUOT,            KC_COMM,      KC_DOT,       KC_P,                 KC_Y,     KC_F,     KC_G,             KC_C,              KC_R,         KC_L,         KC_SLSH,
-    KC_ESC,            LT(_BRACKET, KC_A), LCTL_T(KC_O), LGUI_T(KC_E), LALT_T(KC_U),         KC_I,     KC_D,     RALT_T(KC_H),     RGUI_T(KC_T),      RCTL_T(KC_N), RSFT_T(KC_S), KC_ENT,
-    KC_LSFT,           LSFT_T(KC_SCLN),    KC_Q,         KC_J,         KC_K,                 KC_X,     KC_B,     KC_M,             KC_W,              KC_V,         RSFT_T(KC_Z), KC_RSFT,
-    KC_PIPE,           KC_LCTL,            KC_LALT,      KC_DEL,       LT(_ARROWS, KC_BSPC), KC_LSFT,  KC_RSFT,  LT(_NUM, KC_SPC), LT(_FKEY, KC_TAB), XXXXXXX,      XXXXXXX,      XXXXXXX
+    LT(_MODE, KC_GRV), KC_QUOT,            KC_COMM,      KC_DOT,       KC_P,                 KC_Y,     KC_F,     KC_G,             KC_C,              KC_R,         KC_L,           KC_SLSH,
+    KC_ESC,            LT(_BRACKET, KC_A), LCTL_T(KC_O), LGUI_T(KC_E), LALT_T(KC_U),         KC_I,     KC_D,     RALT_T(KC_H),     RGUI_T(KC_T),      RCTL_T(KC_N), LT(_SYM, KC_S), KC_ENT,
+    KC_LSFT,           LSFT_T(KC_SCLN),    KC_Q,         KC_J,         KC_K,                 KC_X,     KC_B,     KC_M,             KC_W,              KC_V,         RSFT_T(KC_Z),   KC_RSFT,
+    KC_PIPE,           KC_LCTL,            KC_LALT,      KC_DEL,       LT(_ARROWS, KC_BSPC), KC_LSFT,  KC_RSFT,  LT(_NUM, KC_SPC), LT(_FKEY, KC_TAB), XXXXXXX,      XXXXXXX,        XXXXXXX
   ),
   [_NUM] = LAYOUT_ortho_4x12(
     _______, _______, KC_1,    KC_2,   KC_3, _______,  _______, _______, _______, _______, _______, _______,
     _______, _______, KC_4,    KC_5,   KC_6, KC_MINUS, _______, _______, _______, _______, _______, _______,
     _______, _______, KC_7,    KC_8,   KC_9, KC_EQL,   _______, _______, _______, _______, _______, _______,
     _______, _______, _______, KC_DOT, KC_0, _______,  _______, _______, _______, _______, _______, _______
+  ),
+  [_SYM] = LAYOUT_ortho_4x12(
+    _______, _______, KC_EXLM, KC_AT,   KC_HASH, _______,  _______, _______, _______, _______, _______, _______,
+    _______, _______, KC_DLR,  KC_PERC, KC_CIRC, KC_UNDS,  _______, _______, _______, _______, _______, _______,
+    _______, _______, KC_AMPR, KC_ASTR, KC_LPRN, KC_PLUS,  _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, KC_DOT,  KC_RPRN, _______,  _______, _______, _______, _______, _______, _______
   ),
   [_FKEY] = LAYOUT_ortho_4x12(
     _______, _______, KC_F1,   KC_F2,  KC_F3,  _______, _______, _______, _______, _______, _______, _______,
