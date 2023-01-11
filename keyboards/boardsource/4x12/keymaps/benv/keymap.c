@@ -52,10 +52,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, KC_MINS, KC_UNDS, _______, _______, _______
   ),
   [_STENO] = LAYOUT_ortho_4x12(
-    STN_ST1, STN_N1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1, STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
-    _______, STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, STN_A,   STN_O,   STN_N1,  STN_N2,  STN_E,   STN_U,   _______, _______, _______
+    STN_ST1,   STN_N1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1, STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
+    MO(_MODE), STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
+    _______,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______,   _______, _______, STN_A,   STN_O,   STN_N1,  STN_N2,  STN_E,   STN_U,   _______, _______, _______
   ),
   [_MODE] = LAYOUT_ortho_4x12(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, PB_2,
