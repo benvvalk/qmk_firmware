@@ -16,8 +16,8 @@ enum layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MAIN] = LAYOUT_ortho_4x12(
-    LT(_MODE, KC_GRV), KC_QUOT,      KC_COMM,      LT(_BRACKET, KC_DOT), KC_P,                 KC_Y,     KC_F,     KC_G,             LT(_SYM, KC_C), KC_R,         KC_L,         KC_SLSH,
-    KC_ESC,            LSFT_T(KC_A), LCTL_T(KC_O), LGUI_T(KC_E),         LALT_T(KC_U),         KC_I,     KC_D,     RALT_T(KC_H),     RGUI_T(KC_T),   RCTL_T(KC_N), RSFT_T(KC_S), KC_ENT,
+    KC_GRV,            KC_QUOT,      KC_COMM,      LT(_BRACKET, KC_DOT), KC_P,                 KC_Y,     KC_F,     KC_G,             LT(_SYM, KC_C), KC_R,         KC_L,         KC_SLSH,
+    LT(_MODE, KC_ESC), LSFT_T(KC_A), LCTL_T(KC_O), LGUI_T(KC_E),         LALT_T(KC_U),         KC_I,     KC_D,     RALT_T(KC_H),     RGUI_T(KC_T),   RCTL_T(KC_N), RSFT_T(KC_S), KC_ENT,
     KC_LSFT,           KC_SCLN,      KC_Q,         KC_J,                 KC_K,                 KC_X,     KC_B,     KC_M,             KC_W,           KC_V,         KC_Z,         KC_RSFT,
     KC_LCTL,           KC_LGUI,      KC_LALT,      LT(_FKEY, KC_DEL),    LT(_ARROWS, KC_BSPC), KC_LSFT,  KC_RSFT,  LT(_NUM, KC_SPC), KC_TAB,         XXXXXXX,      XXXXXXX,      PB_1
   ),
@@ -52,8 +52,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, KC_MINS, KC_UNDS, _______, _______, _______
   ),
   [_STENO] = LAYOUT_ortho_4x12(
-    MO(_MODE), STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1, STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
-    STN_N1,    STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
+    STN_N1,    STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1, STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
+    MO(_MODE), STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
     _______,   STN_N1,  STN_ST1, _______, _______, _______, _______, _______, _______, STN_ST2, STN_N2,  _______,
     _______,   _______, _______, STN_A,   STN_O,   STN_N1,  STN_N2,  STN_E,   STN_U,   _______, _______, _______
   ),
