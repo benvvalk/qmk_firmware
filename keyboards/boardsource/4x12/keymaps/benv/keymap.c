@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [_STENO] = LAYOUT_ortho_4x12(
     STN_N1,    STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1, STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
-    MO(_MODE), STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
+    PB_3,      STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
     _______,   STN_N1,  STN_ST1, _______, _______, _______, _______, _______, _______, STN_ST2, STN_N2,  _______,
     _______,   _______, _______, STN_A,   STN_O,   STN_N1,  STN_N2,  STN_E,   STN_U,   _______, _______, _______
   ),
@@ -158,6 +158,69 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
 
         break;
+
+    case PB_3:
+
+        // Capslock key on _STENO layer: Momentary switch to
+        // _MODE layer (also provides modifier and arrow keys).
+        //
+        // Note: The "PB" in "PB_3" stands for "Programmable Button".
+        // The PB_* keys are extra keycodes that have no predefined
+        // meaning to the O/S (Windows, Mac, or Linux).
+
+        if (record->event.pressed) {
+
+            // Clear any steno keys that are currently being held when
+            // the _MODE (Capslock) key is pressed. This generally
+            // happens when I try to press both the Capslock key and a
+            // steno/modifier key (e.g. K for Ctrl) at the same time,
+            // but the steno/modifier keypress gets registered
+            // first. If I don't clear the currently pressed
+            // steno/modifier keys, then I end up getting a "ghost"
+            // steno chord as soon as I release the steno/modifier
+            // key. Unfortunately, the intended modifier keypress on
+            // the _MODE layer (e.g. Ctrl) doesn't get registered
+            // either, and I haven't figured out how to fix that
+            // yet. For the time being, I need to be careful to hold
+            // down the Capslock/_MODE key before pressing any
+            // modifier/arrow keys on the _MODE layer.
+
+            steno_clear_chord();
+
+            // Auto-send the "T-FP" chord when entering the steno
+            // layer, which maps to Plover "attach" command
+            // ("{^}"). This prevents Plover from inserting a space
+            // before the first word.
+            //
+            // This is critical for smoothly switching between steno
+            // and the _MODE layer, since I always expect the first
+            // word after entering steno mode to appear exactly at the
+            // cursor position.
+            //
+            // Note: See `quantum/process_keycode/process_steno.c` for
+            // further examples of how these functions are used.
+
+            add_gemini_key_to_chord(STN_TL - QK_STENO);
+            add_gemini_key_to_chord(STN_FR - QK_STENO);
+            add_gemini_key_to_chord(STN_PR - QK_STENO);
+
+            send_steno_chord_gemini();
+
+            steno_clear_chord();
+
+            layer_on(_MODE);
+
+            return false;
+        }
+        else
+        {
+            // Capslock/_MODE key was released, so disable _MODE layer.
+            layer_off(_MODE);
+            return false;
+        }
+
+        break;
+
     }
     return true;
 }
