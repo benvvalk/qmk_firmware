@@ -70,6 +70,63 @@ bool add_gemini_key_to_chord(uint8_t key);
 void send_steno_chord_gemini(void);
 void steno_clear_chord(void);
 
+// Clear any currently pressed steno keys (i.e. behave as if those
+// keys were never pressed), then reset Plover to its default state
+// by sending my custom "SKWH-FBGS" chord.
+void reset_steno_state(void)
+{
+    // Clear any steno keys that are currently being held down.
+    // (Behave as if those keys were never pressed.)
+    //
+    // This generally happens when I'm on the _STENO layer and I try
+    // to press the momentary _MODE key (Capslock) and a modifier key
+    // (e.g. K for Ctrl) at the same time. My intention is to press
+    // the Ctrl key, but if the K keypress gets registered first, it
+    // gets treated as the steno key for K. As a result, I end up
+    // getting a "ghost" steno chord when I release the K key (K ->
+    // "can"), and the Ctrl modifier never gets pressed like I wanted.
+    //
+    // I haven't found a good solution for this issue yet. For the
+    // time being, I need to be careful to hold down the
+    // Capslock/_MODE key before pressing any modifier/arrow keys on
+    // the _MODE layer.
+
+    steno_clear_chord();
+
+    // Auto-send the "SKWH-FBGS" chord when entering the steno
+    // layer, which I have mapped to "{MODE:RESET}{}{^}" in my
+    // `user.json`. This resets the Plover state in various ways:
+    //
+    // * "{MODE:RESET}" disables any special output mode
+    //   that might be active, such as CapsLock mode ("{MODE:CAPS}")
+    //   or Title Case mode ("MODE:TITLE").
+    //
+    // * "{}" tells Plover to cancel any pending formatting
+    //   commands for the next word. For example, if we told Plover
+    //   to capitalize the next word with "{-|}", "{}" will
+    //   cancel that instruction and ensure that the next
+    //   is not capitalized.
+    //
+    // * "{^}" tells Plover to "attach" the next word.
+    //   In other words, don't automatically insert a
+    //   space before the next word.
+    //
+    // Note: See `quantum/process_keycode/process_steno.c` for
+    // further examples of how the function below are used.
+
+    add_gemini_key_to_chord(STN_SL - QK_STENO);
+    add_gemini_key_to_chord(STN_KL - QK_STENO);
+    add_gemini_key_to_chord(STN_WL - QK_STENO);
+    add_gemini_key_to_chord(STN_HL - QK_STENO);
+    add_gemini_key_to_chord(STN_FR - QK_STENO);
+    add_gemini_key_to_chord(STN_BR - QK_STENO);
+    add_gemini_key_to_chord(STN_GR - QK_STENO);
+    add_gemini_key_to_chord(STN_SR - QK_STENO);
+
+    send_steno_chord_gemini();
+    steno_clear_chord();
+}
+
 // QMK callback for custom handling of key press/release events.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
@@ -84,41 +141,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // meaning to the O/S (Windows, Mac, or Linux).
 
         if (record->event.pressed) {
-
-            // Footswitch was pressed, so enable _STENO layer.
-
+            reset_steno_state();
             layer_on(_STENO);
-
-            // Auto-send the "T-FP" chord when entering the steno
-            // layer, which maps to Plover "attach" command
-            // ("{^}"). This prevents Plover from inserting a space
-            // before the first word.
-            //
-            // This is critical for smoothly switching between steno
-            // and regular typing, since I always expect the first
-            // word after entering steno mode to appear exactly at the
-            // cursor position.
-            //
-            // Note: See `quantum/process_keycode/process_steno.c` for
-            // further examples of how these functions are used.
-
-            add_gemini_key_to_chord(STN_TL - QK_STENO);
-            add_gemini_key_to_chord(STN_FR - QK_STENO);
-            add_gemini_key_to_chord(STN_PR - QK_STENO);
-
-            send_steno_chord_gemini();
-            steno_clear_chord();
-
-            return false;
         }
-        else
-        {
-            // Footswitch was released, so disable _STENO layer.
+        else {
             layer_off(_STENO);
-            return false;
         }
 
-        break;
+        return false;
 
     case PB_2:
 
@@ -129,31 +159,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // meaning to the O/S (Windows, Mac, or Linux).
 
         if (record->event.pressed) {
-
-            // Enable steno layer (defined above).
-
+            reset_steno_state();
             layer_on(_STENO);
-
-            // Auto-send the "T-FP" chord when entering the steno
-            // layer, which maps to Plover "attach" command
-            // ("{^}"). This prevents Plover from inserting a space
-            // before the first word.
-            //
-            // This is critical for smoothly switching between steno
-            // and regular typing, since I always expect the first
-            // word after entering steno mode to appear exactly at the
-            // cursor position.
-            //
-            // Note: See `quantum/process_keycode/process_steno.c` for
-            // further examples of how these functions are used.
-
-            add_gemini_key_to_chord(STN_TL - QK_STENO);
-            add_gemini_key_to_chord(STN_FR - QK_STENO);
-            add_gemini_key_to_chord(STN_PR - QK_STENO);
-
-            send_steno_chord_gemini();
-            steno_clear_chord();
-
             return false;
         }
 
@@ -169,58 +176,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // meaning to the O/S (Windows, Mac, or Linux).
 
         if (record->event.pressed) {
-
-            // Clear any steno keys that are currently being held when
-            // the _MODE (Capslock) key is pressed. This generally
-            // happens when I try to press both the Capslock key and a
-            // steno/modifier key (e.g. K for Ctrl) at the same time,
-            // but the steno/modifier keypress gets registered
-            // first. If I don't clear the currently pressed
-            // steno/modifier keys, then I end up getting a "ghost"
-            // steno chord as soon as I release the steno/modifier
-            // key. Unfortunately, the intended modifier keypress on
-            // the _MODE layer (e.g. Ctrl) doesn't get registered
-            // either, and I haven't figured out how to fix that
-            // yet. For the time being, I need to be careful to hold
-            // down the Capslock/_MODE key before pressing any
-            // modifier/arrow keys on the _MODE layer.
-
-            steno_clear_chord();
-
-            // Auto-send the "T-FP" chord when entering the steno
-            // layer, which maps to Plover "attach" command
-            // ("{^}"). This prevents Plover from inserting a space
-            // before the first word.
-            //
-            // This is critical for smoothly switching between steno
-            // and the _MODE layer, since I always expect the first
-            // word after entering steno mode to appear exactly at the
-            // cursor position.
-            //
-            // Note: See `quantum/process_keycode/process_steno.c` for
-            // further examples of how these functions are used.
-
-            add_gemini_key_to_chord(STN_TL - QK_STENO);
-            add_gemini_key_to_chord(STN_FR - QK_STENO);
-            add_gemini_key_to_chord(STN_PR - QK_STENO);
-
-            send_steno_chord_gemini();
-
-            steno_clear_chord();
-
+            reset_steno_state();
             layer_on(_MODE);
-
-            return false;
         }
-        else
-        {
-            // Capslock/_MODE key was released, so disable _MODE layer.
+        else {
             layer_off(_MODE);
-            return false;
         }
 
-        break;
-
+        return false;
     }
+
     return true;
 }
