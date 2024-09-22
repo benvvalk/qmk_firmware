@@ -11,8 +11,8 @@ enum layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_STENO] = LAYOUT(
         STN_N1, STN_S1, STN_TL, STN_PL, STN_HL, STN_ST1,                 STN_ST3, STN_FR, STN_PR, STN_LR, STN_TR, STN_DR,
-        STN_N1, STN_S2, STN_KL, STN_WL, STN_RL, STN_ST2,                 STN_ST4, STN_RR, STN_BR, STN_GR, STN_SR, STN_ZR,
-                                        STN_A,  STN_O,   PB_1,   STN_N2, STN_E,   STN_U
+        PB_1,   STN_S2, STN_KL, STN_WL, STN_RL, STN_ST2,                 STN_ST4, STN_RR, STN_BR, STN_GR, STN_SR, STN_ZR,
+                                        STN_A,  STN_O,   PB_2,   STN_N2, STN_E,   STN_U
     ),
     [_NAV] = LAYOUT(
         _______, KC_LSFT, KC_MEH,  KC_HYPR, KC_LALT, _______,                      KC_DEL,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_INS,
@@ -83,6 +83,47 @@ void reset_steno_state(void)
     steno_clear_chord();
 }
 
+// True when `PB_1` (dual-function symbol/Escape key) is pressed.
+static bool pb1_is_pressed = false;
+
+// True is long as `PB_1` is pressed on its own. As soon as a normal
+// steno key is pressed before `PB_1` is released, this becomes
+// `false`.
+static bool pb1_is_pressed_alone = true;
+
+// The number of steno keys that are currently held down. This is used
+// to implement the dual-function behaviour of the `PB_1` key.
+static int8_t num_steno_keys_pressed = 0;
+
+// QMK callback that is invoked immediately after a steno key is
+// pressed or released.
+//
+// This callback is used to implement the dual-function behavior of
+// the `PB_1` key, where pressing the `PB_1` key by itself maps to
+// `Escape`, but pressing it in combination with other keys makes
+// makes it behave as the "unique starter" chord for "Emily's
+// Symbols".
+bool post_process_steno_user(uint16_t keycode, keyrecord_t *record,
+    steno_mode_t mode, uint8_t chord[MAX_STROKE_SIZE], int8_t n_pressed_keys)
+{
+
+    num_steno_keys_pressed = n_pressed_keys;
+
+    if (n_pressed_keys > 0 && pb1_is_pressed) {
+
+        add_gemini_key_to_chord(STN_KL - QK_STENO);
+        add_gemini_key_to_chord(STN_WL - QK_STENO);
+        add_gemini_key_to_chord(STN_HL - QK_STENO);
+
+        pb1_is_pressed_alone = false;
+    }
+
+    // Note: Returning `true` means that we want QMK to process the
+    // steno key events as usual. Returning `false` means that we want
+    // to do all of the steno key processing ourselves (we don't!).
+    return true;
+}
+
 // QMK callback for custom handling of key press/release events.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
@@ -90,10 +131,42 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case PB_1:
 
+        // Dual-function key that maps to `KWH` when I press it
+        // in combination with other keys, or 'Escape' if I press
+        // it on its own.
+        //
+        // `KWH` is the unique prefix for all my steno chords
+        // for symbols (e.g. `!`, `@`), and thus gives me
+        // a low-effort way to type symbols or to press `Escape`
+        // (both of which I do a lot!).
+
+        if (record->event.pressed) {
+
+            pb1_is_pressed = true;
+            pb1_is_pressed_alone = num_steno_keys_pressed <= 0;
+
+        } else {
+
+            pb1_is_pressed = false;
+
+            // When `PB_1` is pressed alone, we want it act as the
+            // `Escape` key. But if we press any steno keys before
+            // `PB_1` is released, we want it to behave as `KWH` (my
+            // "unique starter" chord for "Emily's Symbols").
+
+            if (pb1_is_pressed_alone) {
+                tap_code(KC_ESC);
+            }
+        }
+
+        break;
+
+    case PB_2:
+
         // Capslock key on _STENO layer: Momentary switch to
         // _MODE layer (also provides modifier and arrow keys).
         //
-        // Note: The "PB" in "PB_1" stands for "Programmable Button".
+        // Note: The "PB" in "PB_2" stands for "Programmable Button".
         // The PB_* keys are extra keycodes that have no predefined
         // meaning to the O/S (Windows, Mac, or Linux).
 
@@ -108,5 +181,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
+    // Note: Returning `true` means that we want QMK to process the
+    // key events as usual. Returning `false` means that we want to
+    // send the output of the keypresses to the computer ourselves (we
+    // don't!).
     return true;
 }
