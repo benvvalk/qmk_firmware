@@ -77,6 +77,59 @@ bool add_gemini_key_to_chord(uint8_t key) {
     chord[group_idx] |= bit;
     return false;
 }
+
+bool remove_gemini_key_from_chord(uint8_t key) {
+    // Although each group of the packet is 8 bits long, the MSB is reserved
+    // to indicate whether that byte is the first byte of the packet (MSB=1)
+    // or one of the remaining five bytes of the packet (MSB=0).
+    // As a consequence, only 7 out of the 8 bits are left to be used as a bit array
+    // for the steno keys of that group.
+    const int group_idx       = key / 7;
+    const int intra_group_idx = key - group_idx * 7;
+    // The 0th steno key of the group has bit=0b01000000, the 1st has bit=0b00100000, etc.
+    const uint8_t bit = 1 << (6 - intra_group_idx);
+    chord[group_idx] &= ~bit;
+    return false;
+}
+
+bool is_gemini_key_in_chord(uint8_t key) {
+    // Although each group of the packet is 8 bits long, the MSB is reserved
+    // to indicate whether that byte is the first byte of the packet (MSB=1)
+    // or one of the remaining five bytes of the packet (MSB=0).
+    // As a consequence, only 7 out of the 8 bits are left to be used as a bit array
+    // for the steno keys of that group.
+    const int group_idx       = key / 7;
+    const int intra_group_idx = key - group_idx * 7;
+    // The 0th steno key of the group has bit=0b01000000, the 1st has bit=0b00100000, etc.
+    const uint8_t bit = 1 << (6 - intra_group_idx);
+    return chord[group_idx] & bit;
+}
+
+uint8_t num_gemini_keys_in_chord(void) {
+
+    uint8_t num_keys_in_chord = 0;
+
+    for (uint8_t i = 0; i < MAX_STROKE_SIZE; ++i) {
+        // Test the least significant 7 bits (i.e. bits 0-6) of each
+        // byte to see which steno keys are pressed, and increment
+        // `num_keys_in_chord` accordingly.
+        //
+        // Note: We exclude the MSB here (i.e. the most significant
+        // bit, i.e. bit 7) because the GeminiPR protocol does not use
+        // that bit to indicate the pressed/unpressed state of a
+        // key. Instead, GeminiPR uses the MSB to indicate the start
+        // of a new steno chord. See the description of the GeminiPR
+        // protocol from the QMK docs for further explanation:
+        // https://docs.qmk.fm/features/stenography#geminipr
+        for (uint8_t j = 0; j < 7; j++) {
+            if (chord[i] & (1 << j)) {
+                num_keys_in_chord++;
+            }
+        }
+    }
+
+    return num_keys_in_chord;
+}
 #endif // STENO_ENABLE_GEMINI
 
 #ifdef STENO_ENABLE_BOLT

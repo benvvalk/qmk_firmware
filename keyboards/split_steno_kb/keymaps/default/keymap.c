@@ -23,6 +23,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Prototypes for internal QMK functions we call below.
 bool add_gemini_key_to_chord(uint8_t key);
+bool remove_gemini_key_from_chord(uint8_t key); // I added this one myself
+uint8_t num_gemini_keys_in_chord(void); // I added this one myself
+bool is_gemini_key_in_chord(uint8_t key); // I added this one myself
 void send_steno_chord_gemini(void);
 void steno_clear_chord(void);
 
@@ -94,6 +97,36 @@ static bool pb1_is_pressed_alone = true;
 // The number of steno keys that are currently held down. This is used
 // to implement the dual-function behaviour of the `PB_1` key.
 static int8_t num_steno_keys_pressed = 0;
+
+// QMK callback that is invoked immediately before sending a steno
+// chord. The QMK documentation for `send_steno_chord_user` is here:
+// https://docs.qmk.fm/features/stenography#interfacing-with-the-code
+//
+// I use this callback to implement some custom behaviour for the
+// bottom right `*` key (STN_ST4) on my steno keyboard. When pressed
+// alone, this key acts like a normal `*` key, but when pressed in
+// combination with any other keys, `*` is replaced with
+// `TDSZ`. `TDSZ` is my "unique ender" chord for
+// `ben-fingerspelling.py`, my custom fingerspelling dictionary that
+// improves on standard fingerspelling in various ways (e.g.  ability
+// to a space before/after the typed character).
+bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[MAX_STROKE_SIZE])
+{
+    uint8_t num_keys_in_chord = num_gemini_keys_in_chord();
+
+    if (is_gemini_key_in_chord(STN_ST4 - QK_STENO) && num_keys_in_chord > 1) {
+        remove_gemini_key_from_chord(STN_ST4 - QK_STENO);
+        add_gemini_key_to_chord(STN_TR - QK_STENO);
+        add_gemini_key_to_chord(STN_SR - QK_STENO);
+        add_gemini_key_to_chord(STN_DR - QK_STENO);
+        add_gemini_key_to_chord(STN_ZR - QK_STENO);
+    }
+
+    // Note: Returning `true` means that we want QMK to process the
+    // steno key events as usual. Returning `false` means that we want
+    // to do all of the steno key processing ourselves (we don't!).
+    return true;
+}
 
 // QMK callback that is invoked immediately after a steno key is
 // pressed or released.
